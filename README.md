@@ -11,5 +11,6 @@ List Of :
 | 05  | [input file](https://raw.githubusercontent.com/samsepi0x0/AdventOfCode2022/main/input_5.txt)  | [PY](https://raw.githubusercontent.com/samsepi0x0/AdventOfCode2022/main/code5.py)  |
 | 06  | [input file](https://raw.githubusercontent.com/samsepi0x0/AdventOfCode2022/main/input_6.txt)  | [PY](https://raw.githubusercontent.com/samsepi0x0/AdventOfCode2022/main/code6.py)  |
 | 07  | [input file](https://raw.githubusercontent.com/samsepi0x0/AdventOfCode2022/main/input_7.txt)  | [PY](https://raw.githubusercontent.com/samsepi0x0/AdventOfCode2022/main/code7.py)  |
+| 08  | [input file](https://raw.githubusercontent.com/samsepi0x0/AdventOfCode2022/main/input_8.txt)  | [PY](https://raw.githubusercontent.com/samsepi0x0/AdventOfCode2022/main/code8.py)  |
 |   |   |   |  
 
