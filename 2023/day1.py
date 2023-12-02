@@ -2,7 +2,7 @@ def main():
     sum = 0
     with open("input1.txt", "r") as f:
         for line in f:
-            nums = parseLumbers(line)
+            nums = parseLine(line)
             number = nums[0] * 10 + nums[-1]
             sum += number
     print(sum)
