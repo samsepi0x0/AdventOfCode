@@ -57,7 +57,7 @@ def part2():
     print("Sum: ", sum(card_count.values()))
 
 def main():
-    # part1()
+    part1()
     part2()
 
 if __name__ == "__main__":
