@@ -83,6 +83,7 @@ def part2():
     print(min(seeds_ranges)[0])
 
 def main():
+    part1()
     part2()
 
 
