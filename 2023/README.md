@@ -7,4 +7,5 @@
 | 03  | [input file]()  | [PY]  | 
 | 04  | [input file](https://github.com/samsepi0x0/AdventOfCode/blob/main/2023/input4.txt)  | [PY](https://github.com/samsepi0x0/AdventOfCode/blob/main/2023/day4.py)  | 
 | 05  | [input file](https://github.com/samsepi0x0/AdventOfCode/blob/main/2023/input5.txt)  | [PY](https://github.com/samsepi0x0/AdventOfCode/blob/main/2023/day5.py)  | 
+| 06  | [input file](https://github.com/samsepi0x0/AdventOfCode/blob/main/2023/input6.txt)  | [PY](https://github.com/samsepi0x0/AdventOfCode/blob/main/2023/day6.py)  | 
 |   |   |   |  
