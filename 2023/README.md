@@ -10,4 +10,5 @@
 | 06  | [input file](https://github.com/samsepi0x0/AdventOfCode/blob/main/2023/input6.txt)  | [PY](https://github.com/samsepi0x0/AdventOfCode/blob/main/2023/day6.py)  | 
 | 07  | [input file](https://github.com/samsepi0x0/AdventOfCode/blob/main/2023/input7.txt)  | [PY](https://github.com/samsepi0x0/AdventOfCode/blob/main/2023/day7.py)  | 
 | 08  | [input file](https://github.com/samsepi0x0/AdventOfCode/blob/main/2023/input8.txt)  | [PY](https://github.com/samsepi0x0/AdventOfCode/blob/main/2023/day8.py)  | 
+| 10  | [input file](https://github.com/samsepi0x0/AdventOfCode/blob/main/2023/input10.txt)  | [PY](https://github.com/samsepi0x0/AdventOfCode/blob/main/2023/day10.py)  | 
 |   |   |   |  
