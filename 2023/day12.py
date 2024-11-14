@@ -1,48 +1,70 @@
+from functools import cache
+
 def part1(lines):
+
+    def f(seq, grp):
+        if not grp:
+            return '#' not in seq 
+        slen = len(seq)
+        glen = grp[0]
+
+        if slen - sum(grp) - len(grp) + 1 < 0:
+            return 0
+        holes = any(seq[x] == '.' for x in range(glen))
+        if (slen == glen):
+            return 0 if holes else 1 
+        use = not holes and (seq[glen] != '#')
+        if (seq[0] == '#'):
+            return f(seq[glen+1:].lstrip('.'), tuple(grp[1:])) if use else 0
+        skip = f(seq[1:].lstrip('.'), grp)
+        if not use:
+            return skip
+        return skip + f(seq[glen+1:].lstrip('.'), tuple(grp[1:]))
+
     score = 0
     for line in lines:
-        pattern = list(line.split(' ')[0])
-        values = "-".join(list(line.split(' ')[1].split(',')))
-        print(values, pattern)
-        a = 0    
-        def f(pattern, ind):
-            global a
-            if (ind >= len(pattern)):
-                p = "".join(pattern)
-                p += "."
-                count = 0
-                string = ""
-                for i in p:
-                    if i == '#':
-                        count += 1 
-                    else:
-                        if (count != 0):
-                            string = string + str(count) + "-"
-                        count = 0
-                #print(p, string)
-                if (string[:-1] == values):
-                    return 1
-                return 0
-            x = 0
-            if (pattern[ind] == '?'):
-                pattern[ind] = '.'
-                x = x + f(pattern, ind+1)
-                pattern[ind] = '#'
-                x = x + f(pattern, ind+1)
-                pattern[ind] = '?'
-            else:
-                x = x + f(pattern, ind+1)
-            return x
-        score += f(pattern, 0)
-
+        seq, grp = line.split(' ')
+        grp = [int(g) for g in grp.split(',')]
+        score += f(seq, tuple(grp))
+    
     print(f"Score: {score}")
 
-def main():
-    file = open('input.txt', 'r')
-    lines = file.readlines()
-    for i in range(len(lines)):
-        lines[i] = lines[i].strip()
+def part2(lines):
+    
+    @cache
+    def f(seq, grp):
+        if not grp:
+            return '#' not in seq 
+        slen = len(seq)
+        glen = grp[0]
 
-    part1(lines)
+        if slen - sum(grp) - len(grp) + 1 < 0:
+            return 0
+        holes = any(seq[x] == '.' for x in range(glen))
+        if (slen == glen):
+            return 0 if holes else 1 
+        use = not holes and (seq[glen] != '#')
+        if (seq[0] == '#'):
+            return f(seq[glen+1:].lstrip('.'), tuple(grp[1:])) if use else 0
+        skip = f(seq[1:].lstrip('.'), grp)
+        if not use:
+            return skip
+        return skip + f(seq[glen+1:].lstrip('.'), tuple(grp[1:]))
+
+    score = 0
+    for line in lines:
+        seq, grp = line.split(' ')
+        seq = '?'.join([seq]*5).lstrip('.')
+        grp = [int(g) for g in grp.split(',')] * 5
+        score += f(seq, tuple(grp))
+    
+    print(f"Score: {score}")
+
+
+
+def main():
+    file = open('input.txt', 'r').readlines()
+    lines = [line.strip() for line in file]
+    part2(lines)
 
 main()
