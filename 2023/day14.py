@@ -24,6 +24,9 @@ def load(board):
     
     return res
 
+def rotate(board):
+    return [list(elem) for elem in zip(*board[::-1])]
+
 def part1(board):
     titledboard = settleNorth(board)
 
@@ -31,14 +34,46 @@ def part1(board):
 
     print(f"Part 1: {score}")
 
+def part2(board):
+    s = "$".join(["-".join(w) for w in board]) # since list are not hashable objects and implementing a tuple now would be too much work
+    seen = {s}
+    seen_list = [s]
+
+    for cycle in range(1000000000):
+        for i in range(0, 4):
+            new_board = settleNorth(board)
+            board = rotate(new_board)
+
+        s = "$".join(["-".join(w) for w in board])
+
+        if (s in seen):
+
+            break
+        
+        seen.add(s)
+        seen_list.append(s)
+
+    firstIndex = seen_list.index(s)
+    x = seen_list[(1000000000 - firstIndex) % (cycle + 1 - firstIndex) + firstIndex]
+    board = [a.split('-') for a in x.split('$')]
+
+    score = load(board)
+    print(f"Part 2 {cycle + 1}: {score}")
+
+def printf(board):
+    for line in board:
+        print("".join(line))
+    print()
+
 def main():
-    lines = open("input.txt", 'r').readlines()
+    lines = open("input.txt.1", 'r').readlines()
     
     matrix = []
     for line in lines:
         matrix.append(list(line.strip()))
     
     part1(matrix)
+    part2(matrix)
 
 if __name__ == "__main__":
     main()
