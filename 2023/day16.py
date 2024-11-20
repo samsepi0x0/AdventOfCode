@@ -98,7 +98,7 @@ def part1(grid):
     print(f"Part 2: {maxCells}")
 
 def main():
-    file = open("input.txt.1", "r")
+    file = open("input.txt", "r")
     lines = file.readlines()
 
     grid = []
