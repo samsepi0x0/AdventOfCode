@@ -65,8 +65,40 @@ def part1(grid):
         uniq_visited.add((r, c))
     print(f"Part 1: {len(uniq_visited)}")
 
+
+    maxCells = 0
+    for i in range(0, len(grid)):
+        visited = set()
+        f('R', i, 0)
+        uniq_visited = set()
+        for _, r, c in visited:
+            uniq_visited.add((r, c))
+        maxCells = max(maxCells, len(uniq_visited))
+        visited = set()
+        uniq_visited = set()
+        f('L', i, len(grid[0]) - 1)
+        for _, r, c in visited:
+            uniq_visited.add((r, c))
+        maxCells = max(maxCells, len(uniq_visited))
+        
+    for i in range(0, len(grid[0])):
+        visited = set()
+        f('D', 0, i)
+        uniq_visited = set()
+        for _, r, c in visited:
+            uniq_visited.add((r, c))
+        maxCells = max(maxCells, len(uniq_visited))
+        visited = set()
+        uniq_visited = set()
+        f('U', len(grid), i)
+        for _, r, c in visited:
+            uniq_visited.add((r, c))
+        maxCells = max(maxCells, len(uniq_visited))
+    
+    print(f"Part 2: {maxCells}")
+
 def main():
-    file = open("input.txt", "r")
+    file = open("input.txt.1", "r")
     lines = file.readlines()
 
     grid = []
