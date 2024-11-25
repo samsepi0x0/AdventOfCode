@@ -109,6 +109,7 @@ def main():
         dirn, steps, color = line.strip().split(" ")
         commands.append((dirn, int(steps), color[1:-1]))
     
+    part1(commands)    
     part2(commands)
 
 if __name__ == "__main__":
