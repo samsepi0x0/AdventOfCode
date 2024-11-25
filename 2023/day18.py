@@ -8,7 +8,7 @@ def part1(commands):
     score = 0
     seen = list()
     boundary = 0
-    for dirn, steps in commands:
+    for dirn, steps, _ in commands:
         seen.append((x-220, y-190))
         for i in range(0, steps):
             grid[x][y] = '#'
@@ -34,6 +34,38 @@ def part1(commands):
     interior = area - (boundary // 2) + 1
     score = (boundary + interior)
     print(f"Part 1: {score}")
+
+def part2(commands):
+    mapping = {'0':'R', '1':'D', '2': 'L', '3':'U'}
+    seen = list()
+    x, y = 0, 0
+    boundary = 0
+    for _, _, color in commands:
+        direction = mapping[color[-1]]
+        distance = int(color[1:-1], 16)
+        boundary += distance
+        seen.append((x, y))
+        if direction == 'R':
+            y += distance
+        elif direction == 'L':
+            y -= distance
+        elif direction == 'U':
+            x -= distance
+        else:
+            x += distance
+    seen.append(seen[0])
+
+    seen = seen[::-1]
+    area = 0
+    for i in range(0, len(seen)-1):
+        x0, y0 = seen[i]
+        x1, y1 = seen[i+1]
+        area = area + (x0+x1)*(y1-y0)
+    area = area // 2
+    interior = area - (boundary // 2) + 1
+    score = (boundary + interior)
+    print(f"Part 2: {score}")
+        
 
 def output(arr, N, name='a.png'):
     from PIL import Image, ImageDraw
@@ -69,15 +101,15 @@ def output(arr, N, name='a.png'):
     img.save(name)
 
 def main():
-    file = open("input.txt.1", 'r')
+    file = open("input.txt", 'r')
     lines = file.readlines()
 
     commands = []
     for line in lines:
-        dirn, steps = line.strip().split(" ")[:2]
-        commands.append((dirn, int(steps)))
+        dirn, steps, color = line.strip().split(" ")
+        commands.append((dirn, int(steps), color[1:-1]))
     
-    part1(commands)
+    part2(commands)
 
 if __name__ == "__main__":
     main()
