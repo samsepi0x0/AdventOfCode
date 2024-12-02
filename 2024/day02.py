@@ -2,32 +2,32 @@ def part1(lists):
     safe = 0
 
     for seq in lists:
-        ascending = True
-        prev = seq[0]
-        for i in range(1, len(seq)):
-            if (prev < seq[i] and seq[i]-prev >= 1 and seq[i]-prev <= 3):
-                ascending = True
-                prev = seq[i]
-            else:
-                ascending = False
-                break
+        ascending = all((seq[i] < seq[i+1] and seq[i+1]-seq[i] >= 1 and seq[i+1]-seq[i] <= 3) for i in range(len(seq) - 1))
         
         if (ascending):
             safe += 1
         else:
-            descending =  True
-            prev = seq[0]
-            for i in range(1, len(seq)):
-                if (prev > seq[i] and prev - seq[i] >= 1 and prev - seq[i] <= 3):
-                    prev = seq[i]
-                else:
-                    descending = False
-                    break
+            descending = all((seq[i] > seq[i+1] and seq[i]-seq[i+1] >= 1 and seq[i]-seq[i+1] <= 3) for i in range(len(seq) - 1))
             if (descending):
                 safe += 1
-    
+        
     print(f"Part 1 : {safe}")
 
+def part2(lists):
+    safe = 0
+    
+    for seq in lists:
+        good = False
+        for j in range(len(seq)):
+            s = seq[:j] + seq[j+1:]
+            ascending = all((s[i] < s[i+1] and s[i+1]-s[i] >= 1 and s[i+1]-s[i] <= 3) for i in range(len(s) - 1))
+            descending = all((s[i] > s[i+1] and s[i]-s[i+1] >= 1 and s[i]-s[i+1] <= 3) for i in range(len(s) - 1))
+            if (ascending or descending):
+                good = True
+        if (good):
+            safe += 1
+            
+    print(f"Part 2 : {safe}")
 
 def main():
     file = open('input.txt', 'r')
@@ -40,5 +40,6 @@ def main():
         lists.append(list(map(int, x)))
 
     part1(lists)
+    part2(lists)
     
 main()
