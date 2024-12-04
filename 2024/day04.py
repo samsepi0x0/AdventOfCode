@@ -82,6 +82,29 @@ def part1(lines):
 
     print(f"Part 1: {score}")
 
+def part2(lines):
+    score = 0
+    m = len(lines)
+    n = len(lines[0])
+    key = "MAS"
+    for r in range(1, m-1):
+        for c in range(1, n-1):
+            if (lines[r][c] == 'A'):
+                ch = lines[r][c]
+                ul = lines[r-1][c-1]
+                ur = lines[r-1][c+1]
+                dl = lines[r+1][c-1]
+                dr = lines[r+1][c+1]
+
+                D1 = ul + ch + dr
+                D2 = ur + ch + dl
+
+                if (D1 == key or D1 == key[::-1]) and (D2 == key or D2 == key[::-1]):
+                    score += 1
+
+    print(f"Part 2 : {score}")
+
+
 def main():
     file = open('input.txt', 'r')
     lines = file.readlines()
@@ -91,6 +114,7 @@ def main():
         grid.append(line.strip())
 
     part1(grid)
+    part2(grid)
 
 if __name__ == "__main__":
     main()
