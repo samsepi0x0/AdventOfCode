@@ -1,8 +1,7 @@
 import sys
 sys.setrecursionlimit(10000)
 
-def part1(grid):
-    score = 0
+def part2(grid):
     x, y = -1, -1
     dirn = ""
 
@@ -11,34 +10,39 @@ def part1(grid):
             if (ch == '^'):
                 x, y, dirn = row, col, 'N'
     
-    vis = set()
-    def solve(x, y, dirn, vis, mapping = {'N' : 'E', 'E':'S', 'S':'W', 'W':'N'}, values = {'N': (-1, 0), 'S': (1, 0), 'E': (0, 1), 'W': (0, -1)}):
-        if ((x, y, dirn) in vis):
-            return
-        if (x < 0 or x >= len(grid) or y < 0 or y >= len(grid[0])):
-            return
+    def solve(x, y, dirn, obstacle = None, mapping = {'N' : 'E', 'E':'S', 'S':'W', 'W':'N'}, values = {'N': (-1, 0), 'S': (1, 0), 'E': (0, 1), 'W': (0, -1)}):
+        visited = set()
+        path = set()
 
-        vis.add((x, y, dirn))
-        dx, dy = values[dirn]
-        nx, ny = x + dx, y + dy
+        path.add((x, y, dirn))
 
-        if (nx < 0 or nx >= len(grid) or ny < 0 or ny >= len(grid[0])):
-            return
-        
-        if (grid[nx][ny] == '#'):
-            solve(x, y, mapping[dirn], vis, mapping, values)
-        else:
-            solve(nx, ny, dirn, vis, mapping, values)
+        while (0 <= x < len(grid) and 0 <= y < len(grid[0])):
+            visited.add((x, y))
+            dx, dy = values[dirn]
+            nx, ny = x + dx, y + dy
+
+            if (0 <= nx < len(grid) and 0 <= ny < len(grid[0])) and (grid[nx][ny] == '#' or (obstacle and (nx, ny) == obstacle)):
+                dirn = mapping[dirn]
+            else:
+                x, y = nx, ny
+            
+            if (x, y, dirn) in path:
+                return True, visited
+            path.add((x, y, dirn))
+        return False, visited
+
+    _, vis = solve(x, y, dirn)
+    print(f"Part 1 : {len(vis)}")
+    obstaclePos = 0
+
+    for possible in vis:
+        if not (vis == (x, y)):
+            valid, _ = solve(x, y, dirn, obstacle=possible)
+            if valid:
+                obstaclePos += 1
     
+    print(f"Part 2 : {obstaclePos}")
 
-    solve(x, y, dirn, vis)
-    cells = set()
-
-    for x, y, _ in vis:
-        cells.add((x, y))
-
-    score = len(cells)
-    print(f"Part 1 : {score}")
 
 def main():
     file = open('input.txt', 'r')
@@ -47,7 +51,7 @@ def main():
     for line in lines:
         grid.append(list(line.strip()))
 
-    part1(grid)
+    part2(grid)
 
 if __name__ == "__main__":
     main()
