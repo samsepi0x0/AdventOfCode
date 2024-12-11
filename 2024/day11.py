@@ -1,27 +1,25 @@
 from tqdm import tqdm
-from collections import defaultdict, Counter
 
 file = open("input.txt", "r")
 line = file.readline().strip()
 
-all_stones = list(map(int, line.split(" ")))
-stones = Counter(all_stones)
+stones = list(map(int, line.split(" ")))
 
-for _ in tqdm(range(75)):
-    new_stones = defaultdict(int)
-    for stone, n in stones.items():
+
+for blink in tqdm(range(25)):
+    new_stone = list()
+    for ind, stone in enumerate(stones):
         if (stone == 0):
-            new_stones[1] += n 
+            new_stone.append(1)
             continue
         string = str(stone)
         if (len(string) % 2 == 0):
             v = len(string) // 2
-            new_stones[int(string[:v])] += n 
-            new_stones[int(string[v:])] += n
+            new_stone.append(int(string[0:v]))
+            new_stone.append(int(string[v:]))
         else:
-            new_stones[stone*2024] += n
+            new_stone.append(stone * 2024)
     
-    stones = new_stones
 
-print(f"Part 1 : {sum(stones.values())}")
-
+    stones = new_stone
+print(f"Part 1 : {len(stones)}")
