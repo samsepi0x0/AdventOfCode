@@ -45,3 +45,41 @@ for key in map.keys():
         score += (area * perimeter)
 
 print(f"Part 1: {score}")
+
+score2 = 0
+
+for key in map.keys():
+    for region in map[key]:
+        area = len(region)
+        edges = {}
+        for r, c in region:
+            for dr, dc in [(0, 1), (0, -1), (-1, 0), (1, 0)]:
+                nr, nc = r + dr, c + dc
+                if (nr, nc) in region:
+                    continue
+                er, ec = (r + nr) / 2, (c + nc) / 2
+                edges[(er, ec)] = (er - r, ec - c)
+        seen = set()
+        count = 0
+
+        for edge, dirn in edges.items():
+            if edge in seen:
+                continue
+            seen.add(edge)
+            count += 1
+            er, ec = edge
+            if (er%1 == 0):
+                for dr in [-1, 1]:
+                    cr = er + dr
+                    while edges.get((cr, ec)) == dirn:
+                        seen.add((cr, ec))
+                        cr = cr + dr
+            else:
+                for dc in [-1, 1]:
+                    cc = ec + dc
+                    while edges.get((er, cc)) == dirn:
+                        seen.add((er, cc))
+                        cc = cc + dc
+        score2 += (area * count)
+
+print(f"Part 2 : {score2}")
