@@ -76,6 +76,14 @@ func main() {
 			}
 		}
 	}
+
+	var result2 int64
+	for i := 0; i < len(merged_intervals); i++ {
+		l, r := merged_intervals[i][0], merged_intervals[i][1]
+		result2 = result2 + int64(r - l + 1)
+	}
+
 	fmt.Println("Day 05 Part 01 :", result1)
+	fmt.Println("Day 05 Part 02 :", result2)
 
 }
